@@ -63,6 +63,22 @@ int Knight::defend()
 
 /* 
  * ===  FUNCTION  =============================================================
+ *         Name:  printStats()
+ *  Description:  This function prints the stats of the Character
+ * ============================================================================
+ */
+void Knight::printStats()
+{
+    cout << "== Knight Stats ===" << endl;
+    cout << "HP:      " << HP << endl;
+    cout << "Attack:  2d6" << endl;
+    cout << "Defense: 2d6" << endl;
+    cout << "===================" << endl;
+
+}
+
+/* 
+ * ===  FUNCTION  =============================================================
  *         Name:  ~Knight()
  *  Description:  Deconstructor. Deletes the die object and sets pointer to
  *                null

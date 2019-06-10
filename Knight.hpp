@@ -23,6 +23,7 @@ public:
     Knight();
     int attack() override;
     int defend() override;
+    void printStats() override;
     ~Knight();
     Die *d6 = nullptr;
 };

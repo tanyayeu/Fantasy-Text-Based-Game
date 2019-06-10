@@ -22,7 +22,7 @@
 class Game
 {
 private:
-    int attackRoll, defenseRoll, totalDamage;
+    int attackRoll, defenseRoll, totalDamage, townHealth = 50;
     Character *player;
     Space *Home,
           *Rivendell,
@@ -31,10 +31,17 @@ private:
           *Deadwood,
           *Moria,
           *playerLoc;
+    
 public:
     Game();
     void playGame();
+    void travel(int dir);
     void createMap();
+    void displayArea();
+    void printMap();
+    bool isValidDir(int dir);
+    void intro();
     ~Game();
 };
 #endif
+
