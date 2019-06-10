@@ -5,11 +5,11 @@ CXXFLAGS += -pedantic-errors
 CXXFLAGS += -g
 #LDFLAGS = -lboost_date_time
 
-OBJS = main.o getInput.o functions.o 
+OBJS = main.o getInput.o Forest.o Town.o Dungeon.o Character.o Knight.o Space.o Die.o
 
-SRCS = main.cpp getInput.cpp functions.cpp 
+SRCS = main.cpp getInput.cpp Forest.cpp Town.cpp Character.cpp Knight.cpp Space.cpp Die.cpp
 
-HEADERS = getInput.hpp functions.hpp 
+HEADERS = getInput.hpp Forest.hpp Space.hpp Town.hpp Character.hpp Knight.hpp Dungeon.hpp Die.hpp
 
 TARGET = main
 
