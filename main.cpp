@@ -17,6 +17,7 @@
 #include <ctime>
 #include <string>
 #include "getInput.hpp"
+#include "Game.hpp"
 using std::cout;
 using std::endl;
 
@@ -32,10 +33,12 @@ int main()
         input = getInput(1,2);
         if(input ==1)        
         {
-            //do stuff
+            Game game;
+            game.playGame();
         }
         if(input ==2)
         {
+            cout << "Goodbye!" << endl;
             return 0;
         }
         cout << "Would you like to play again?" << endl;

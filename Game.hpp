@@ -17,13 +17,20 @@
 #define GAME_HPP
 #include <string>
 #include "Character.hpp"
-using std::string;
+#include "Space.hpp"
 
 class Game
 {
 private:
     int attackRoll, defenseRoll, totalDamage;
     Character *player;
+    Space *Home,
+          *Rivendell,
+          *Fangorn,
+          *Mirkwood,
+          *Deadwood,
+          *Moria,
+          *playerLoc;
 public:
     Game();
     void playGame();

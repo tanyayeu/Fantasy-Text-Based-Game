@@ -32,6 +32,7 @@ public:
     string getType();
     void recover(int n); //for potions
     int getMaxHP();
+    virtual ~Character();
 };
 #endif
 

@@ -21,6 +21,8 @@
 #include <ctime>
 #include "Town.hpp"
 #include "Dungeon.hpp"
+#include "Space.hpp"
+#include <cstddef>
 using std::cout;
 using std::endl;
 
@@ -35,6 +37,8 @@ void Game::playGame()
     unsigned seed;
     seed = time(0);
     srand(seed);
+    playerLoc = Home; //starting location is home
+    //setting
     cout << "You are knight in a small town surrounded by forests." << endl;
 }
 
@@ -48,12 +52,12 @@ void Game::createMap()
 
 
     */
-    Space *Home = new Town;
-    Space *Rivendell = new Town;
-    Space *Fangorn = new Forest;
-    Space *Mirkwood = new Forest;
-    Space *Deadwood = new Forest;
-    Space *Moria = new Dungeon;
+    Home = new Town;
+    Rivendell = new Town;
+    Fangorn = new Forest;
+    Mirkwood = new Forest;
+    Deadwood = new Forest;
+    Moria = new Dungeon;
 
     Home->left = Fangorn;
     Home->right = Deadwood;
@@ -81,3 +85,21 @@ void Game::createMap()
     Deadwood->bottom = nullptr;
     
 }
+
+Game::~Game()
+{ 
+    delete Home;
+    Home = nullptr;
+    delete Fangorn;
+    Fangorn = nullptr;
+    delete Mirkwood;
+    Mirkwood = nullptr;
+    delete Deadwood;
+    Deadwood = nullptr;
+    delete Moria;
+    Moria = nullptr;
+    delete Rivendell;
+    Rivendell = nullptr;
+    delete player;
+    player = nullptr;
+} 

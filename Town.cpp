@@ -31,7 +31,10 @@ void Town::printInfo()
     cout << " options:" << endl;
 }
 
+void Town::spawnEnemy()
+{
 
+}
 Town::~Town()
 {
 

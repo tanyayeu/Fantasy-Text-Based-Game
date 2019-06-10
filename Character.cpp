@@ -41,3 +41,8 @@ int Character::getMaxHP()
 {
     return maxHP;
 }
+
+Character::~Character()
+{
+
+}

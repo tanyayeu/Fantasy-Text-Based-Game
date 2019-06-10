@@ -21,6 +21,7 @@ class Town: public Space
 {
 public:
     void printInfo() override;
+    void spawnEnemy() override;
     Town();
     ~Town();
 };
