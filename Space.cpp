@@ -39,5 +39,10 @@ Space::~Space()
 
 void Space::setIsBossDefeated()
 {
-    isBossDefeated = true;
+    BossDefeated = true;
+}
+
+bool Space::isBossDefeated()
+{
+    return BossDefeated;
 }

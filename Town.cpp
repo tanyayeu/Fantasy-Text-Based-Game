@@ -38,15 +38,11 @@ void Town::printInfo()
 void Town::interact(Character *p, int &townHealth, Backpack *backpack)
 {
     int input;
-    //1 explore
-    Item *potion;
-    //2 rest
+    do
+    {
     cout << "1. Rest - You gain 5HP but the town loses 5HP" << endl;
-    ////////+5 health, -5 townhealth
     cout << "2. Go to shop" << endl;
     cout << "3. Continue on" << endl;
-    //3 Go to shop
-    //4 contine on
     input = getInput(1,3);
     switch(input)
     {
@@ -69,9 +65,13 @@ void Town::interact(Character *p, int &townHealth, Backpack *backpack)
                 switch(input2)
                 {
                     case 1:
-                        potion = new Potion;
-                        p->setGold(p->getGold()-10);
-                        backpack->add(potion);
+                        //add stuff to backpack
+                        break;
+                    case 2:
+                        //add hi potion to backpack
+                        break;
+                    case 3:
+                        break;
 
                 }
             }while(input2!=3 && p->getGold()>10);
@@ -79,6 +79,7 @@ void Town::interact(Character *p, int &townHealth, Backpack *backpack)
         case 3:
             break;
     }
+    }while(input!=3);
 }
 
 Town::~Town()

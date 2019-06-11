@@ -13,6 +13,9 @@
  * ============================================================================
  */
 #include "Character.hpp"
+#include <iostream>
+using std::cout;
+using std::endl;
 
 Character::Character()
 {
@@ -60,4 +63,33 @@ int Character::getGold()
 void Character::setGold(int g)
 {
     gold =g;
+}
+
+void Character::openBP()
+{
+    if(backpack.empty())
+    {
+        cout << "Your backpack is empty" << endl << endl;
+    }
+    else
+    {
+        for(int i = 0; i<backpack.size(); i++)
+        {
+            cout << backpack[i] << " ";
+        }
+        cout << endl;
+    }
+}
+
+void Character::addToBP(char x)
+{
+    if(backpack.size() > bpSize)
+    {
+        cout << "Your backpack is full!" << endl;
+        return;
+    }
+    else
+    {
+        backpack += x;
+    }
 }

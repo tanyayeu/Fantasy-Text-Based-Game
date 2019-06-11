@@ -16,24 +16,20 @@
 #include <cstdlib>
 Enemy::Enemy()
 {
-    HP = rand() % (25-15 +1) + 15; //random between 10 and 25
+    HP = rand() % (20-15 +1) + 15; //random between 10 and 25
     d12 = new Die(12);
     maxHP = HP;
     type = "Enemy";
 }
 
-Enemy::attack()
+int Enemy::attack()
 {
     return d12->rollDie();
 }
 
-Enemy::defend()
+int Enemy::defend()
 {
     int roll= d12->rollDie();
-    if(roll==12)
-    {
-        recover(5);
-    }
     return roll;
 }
 

@@ -24,6 +24,8 @@ protected:
     int HP, maxHP, gold; //health points
     string type;
     Character();
+    int bpSize = 6;
+    string backpack;
 
 public:
     virtual int attack() = 0;
@@ -37,6 +39,9 @@ public:
     virtual ~Character();
     int getGold();
     void setGold(int g);
+    void addToBP(char x);
+    void useItem(char x);
+    void openBP();
 };
 #endif
 

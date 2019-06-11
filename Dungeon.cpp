@@ -22,7 +22,7 @@ using std::endl;
 Dungeon::Dungeon()
 {
     type = "Dungeon";
-    isBossDefeated = false;
+    BossDefeated = false;
     creature = nullptr;
     finalBoss = nullptr;
 }
@@ -34,10 +34,10 @@ void Dungeon::printInfo()
 
 void Dungeon::interact(Character *p, int &townHealth, Backpack *bp)
 {
-    int input, attackRoll, defenseRoll, totalDamage, chance;
+    int input, chance;
     cout << "Do you want to light a torch? If you light a torch, you will";
-    cout << "alert the creatures of your presence. If you don't, you will";
-    cout << "be at a disadvantage fighting the wizard" << endl;
+    cout << " alert the creatures of\nyour presence. If you don't, you will";
+    cout << "be at a disadvantage fighting the wizard." << endl;
     cout << "1. Yes. Light torch (battle)" << endl;
     cout << "2. No. stay in the dark (-5HP)" << endl;
 
@@ -49,51 +49,7 @@ void Dungeon::interact(Character *p, int &townHealth, Backpack *bp)
             cout << "You light a torch. A creature starts screeching";
             cout << " and approaches you." << endl;
             isLit = true;
-            creature = new Enemy;
-            creature->printStats();
-            cout << endl;
-            p->printStats();
-            cout << "== BATTLING ==" << endl;
-            do
-            {
-                attackRoll = p->attack();
-                defenseRoll = creature->defend();
-                totalDamage = attackRoll - defenseRoll;
-                if(totalDamage<0)
-                {
-                    totalDamage = 0;
-                }
-                cout << "You attack the creature for "<< totalDamage;
-                cout << " damage." << endl;
-                cout << "Your HP:  " << p->getHP() << "HP"<<endl;
-                creature->setHP(creature->getHP()-totalDamage);
-                cout << "Enemy HP: "<<creature->getHP() <<"HP"<<endl;
-
-                if(p->getHP()>0 && creature->getHP()>0)
-                {
-                    attackRoll = creature->attack();
-                    defenseRoll = p->defend();
-                    totalDamage = attackRoll - defenseRoll;
-                    if(totalDamage<0)
-                    {   
-                        totalDamage = 0;
-                    }
-                    cout << "The creature attacked you for "<<totalDamage;
-                    cout << " damage." << endl;
-                    p->setHP(p->getHP()-totalDamage);
-                    cout << "Your HP:  " << p->getHP()<<"HP"<<endl;
-                    cout << "Enemy HP: " <<creature->getHP()<<"HP\n";
-                }
-            }while(p->getHP()>0 && creature->getHP()>0);
-            if(p->getHP()>0)
-            {
-                cout << "You defeated the creature." << endl;
-                cout << "Your HP:  " << p->getHP() << "HP" <<endl;
-            }
-            else
-            {
-                cout << "You were defeated. Game over." << endl;
-            }
+            battle(p,creature);
             break;
         case 2:
             cout << "You have chosen to stay in the dark (-5HP)" <<endl;
@@ -101,21 +57,15 @@ void Dungeon::interact(Character *p, int &townHealth, Backpack *bp)
             isLit = false;
             break;
 
-            delete creature;
-            creature = nullptr;
             //end torch consequences
     }
     cout << "You venture deeper into the dungeon..." << endl;
     chance = rand() % 10 + 1;
-    if(isLit)
+    if(isLit && chance >=5) //if lit, 50% chance to battle again
     {
-        //if it's lit, 50% chance of entering battle again
-        if(chance >=5)
-        {
-            creature = new Enemy;
-        }
+        cout << "Another creature is alerted of your presence!" << endl;
+        battle(p,creature);
     }
-
 }
 Dungeon::~Dungeon()
 {
@@ -144,6 +94,7 @@ void Dungeon::battle(Character* p, Character *creature)
         cout << "Your HP:  " << p->getHP() << "HP"<<endl;
         creature->setHP(creature->getHP()-totalDamage);
         cout << "Enemy HP: "<<creature->getHP() <<"HP"<<endl;
+        cout << "------------------------------------------------------------" <<endl;
 
         if(p->getHP()>0 && creature->getHP()>0)
         {
@@ -159,17 +110,19 @@ void Dungeon::battle(Character* p, Character *creature)
             p->setHP(p->getHP()-totalDamage);
             cout << "Your HP:  " << p->getHP()<<"HP"<<endl;
             cout << "Enemy HP: " <<creature->getHP()<<"HP\n";
+            cout<<"------------------------------------------------------------" <<endl;
         }
     }while(p->getHP()>0 && creature->getHP()>0);
     if(p->getHP()>0)
     {
-        cout << "You defeated the creature." << endl;
+        cout << "You defeated the creature!" << endl;
         cout << "Your HP:  " << p->getHP() << "HP" <<endl;
     }
     else
     {
-        cout << "You were defeated. Game over." << endl;
+        cout << "You were defeated!" << endl;
     }
+    delete creature;
 
 }
 

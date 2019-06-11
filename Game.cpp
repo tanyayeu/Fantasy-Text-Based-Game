@@ -24,6 +24,7 @@
 #include "Backpack.hpp"
 #include "Space.hpp"
 #include <cstddef>
+#include "Potion.hpp"
 using std::cout;
 using std::endl;
 
@@ -38,6 +39,7 @@ Game::Game()
 void Game::playGame()
 {
     unsigned seed;
+    Item *bp = new Item[6];
     seed = time(0);
     int choice;
     Backpack backpack;
@@ -53,7 +55,7 @@ void Game::playGame()
     //map of area
     printMap();
 
-    while(townHealth>=0 && player->getHP() > 0 && playerLoc->!isBossDefeated())
+    while(townHealth>=0 && player->getHP() > 0 && playerLoc->isBossDefeated()==false)
     {
         cout << "Town Health: " << townHealth << "HP"<< endl;
         cout << "Your Health: " << player->getHP() << "HP" << endl; 
@@ -64,41 +66,50 @@ void Game::playGame()
         playerLoc->interact(player, townHealth, &backpack);
         //battle
         //get items.. etc.
-        do
+        if(player->getHP()>0)
         {
-        cout << "== MENU ==" <<endl;
-        cout << "1. Open backpack" << endl;
-        cout << "2. Show map" << endl;
-        cout << "3. Continue on" << endl;
-        choice = getInput(1,3);
-        switch(choice)
-        {
-            case 1:
-                backpack.showBackpack(player);
-                break;
-            case 2:
-                printMap();
-                cout << endl;
-                break;
-            case 3:
-                break;
-        };
-        }while(choice!=3);
-        displayArea();
-        cout << "Where would you like to travel to?" << endl;
-        cout << "Direction: ";
-        dir = getInput(1,4);
-        while(!isValidDir(dir))
-        {
-            cout << "That is not a valid direction." << endl;
+            do
+            {
+                cout << "== MENU ==" <<endl;
+                cout << "1. Open backpack" << endl;
+                cout << "2. Show map" << endl;
+                cout << "3. Continue on" << endl;
+                choice = getInput(1,3);
+                switch(choice)
+                {
+                    case 1:
+                        //backpack.showBackpack(player);
+                        player->openBP();
+                        break;
+                    case 2:
+                        printMap();
+                        cout << endl;
+                        break;
+                    case 3:
+                        break;
+                };
+            }while(choice!=3);
+            displayArea();
+            cout << "Where would you like to travel to?" << endl;
             cout << "Direction: ";
             dir = getInput(1,4);
+            while(!isValidDir(dir))
+            {
+                cout << "That is not a valid direction." << endl;
+                cout << "Direction: ";
+                dir = getInput(1,4);
+            }
+            if(isValidDir(dir))
+            {
+                travel(dir);
+            }
+
+            townHealth -= 5;
         }
-        if(isValidDir(dir))
+        else
         {
-            travel(dir);
+            cout << "Game over..." << endl;
         }
-        townHealth -= 5;
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
         cout << endl;
     }
@@ -142,14 +153,14 @@ void Game::intro()
 void Game::createMap()
 {
     /*
-     ____________________________________
-    | Rivendell    | Mirkwood  | Moria   |
-    |--------------|-----------|---------|
-    | Fangorn      | Kirkwall  | Deadwood|
-    |____________________________________|
+       ____________________________________
+       | Rivendell    | Mirkwood  | Moria   |
+       |--------------|-----------|---------|
+       | Fangorn      | Kirkwall  | Deadwood|
+       |____________________________________|
 
 
-    */
+*/
     Home = new Town;
     Home->setName("Kirkwall");
     Rivendell = new Town;
@@ -192,7 +203,7 @@ void Game::createMap()
     Deadwood->left = Home;
     Deadwood->right = nullptr;
     Deadwood->bottom = nullptr;
-    
+
 }
 
 /* 
@@ -264,6 +275,10 @@ bool Game::isValidDir(int dir)
         {
             return true;
         }
+    }
+    else
+    {
+        return false;
     }
 }
 
