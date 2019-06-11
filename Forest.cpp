@@ -19,7 +19,6 @@
 #include "Space.hpp"
 #include "Knight.hpp"
 #include "Enemy.hpp"
-#include "Backpack.hpp"
 using std::cout;
 using std::endl;
 using std::string;
@@ -36,13 +35,10 @@ void Forest::printInfo()
     cout << "Keep your wits about you and be careful!" << endl << endl;
 }
 
-void Forest::interact(Character *p, int &townHealth, Backpack *b)
+void Forest::interact(Character *p, int &townHealth)
 {
     cout << "A creature has appeared!" << endl;
     creature = new Enemy;
-    creature->printStats();
-    cout << endl;
-    p->printStats();
     battle(p,creature);
 }
 

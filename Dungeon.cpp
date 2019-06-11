@@ -32,7 +32,7 @@ void Dungeon::printInfo()
     cout << " you can't see a damn thing." << endl << endl;
 }
 
-void Dungeon::interact(Character *p, int &townHealth, Backpack *bp)
+void Dungeon::interact(Character *p, int &townHealth)
 {
     int input, chance;
     cout << "Do you want to light a torch? If you light a torch, you will";

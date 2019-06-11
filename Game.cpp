@@ -21,10 +21,8 @@
 #include <ctime>
 #include "Town.hpp"
 #include "Dungeon.hpp"
-#include "Backpack.hpp"
 #include "Space.hpp"
 #include <cstddef>
-#include "Potion.hpp"
 using std::cout;
 using std::endl;
 
@@ -32,17 +30,14 @@ Game::Game()
 {
     player = new Knight;
     createMap();
-    //Backpack *backpack = new Backpack;
-    Backpack backpack;
+    townHealth = 50;
 }
 
 void Game::playGame()
 {
     unsigned seed;
-    Item *bp = new Item[6];
     seed = time(0);
-    int choice;
-    Backpack backpack;
+    int choice, itemIndex, input;
     srand(seed);
     int dir; //direction to go in
     playerLoc = Home; //starting location is home
@@ -61,11 +56,8 @@ void Game::playGame()
         cout << "Your Health: " << player->getHP() << "HP" << endl; 
         cout << "Gold:        " << player->getGold() << "g" << endl<<endl;
 
-        //town events need to happen here
         playerLoc->printInfo();
-        playerLoc->interact(player, townHealth, &backpack);
-        //battle
-        //get items.. etc.
+        playerLoc->interact(player, townHealth);
         if(player->getHP()>0)
         {
             do
@@ -78,8 +70,19 @@ void Game::playGame()
                 switch(choice)
                 {
                     case 1:
-                        //backpack.showBackpack(player);
                         player->openBP();
+                        if(player->isEmpty() == false)
+                        {
+                            cout << "Use an item?" << endl;
+                            cout << "1. Yes\n" << "2. No\n";
+                            input = getInput(1,2);
+                            if(input ==1)
+                            {
+                                cout << "Which item would you like to use?" << endl;
+                                itemIndex = getInput(1,player->getNumBP());
+                                player->useItem(itemIndex);
+                            }
+                        }
                         break;
                     case 2:
                         printMap();
@@ -130,6 +133,8 @@ void Game::intro()
     cout << " where enemies lie. Each day, the town will lose 5HP. If HP";
     cout << " drops to 0\n or you lose all your HP the game is over.\n";
     cout << endl;
+    cout << "== Backpack ==" << endl;
+    cout << "Your backpack can hold up to 6 items."<<endl<<endl;
     cout << "== Towns ==" << endl;
     cout << "You can choose to rest up here or buy potions. If you rest,";
     cout << " you will gain 5HP,\nbut the town will lose 5HP.";

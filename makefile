@@ -5,11 +5,11 @@ CXXFLAGS += -pedantic-errors
 CXXFLAGS += -g
 #LDFLAGS = -lboost_date_time
 
-OBJS = main.o getInput.o Forest.o Town.o Dungeon.o Character.o Knight.o Space.o Die.o Game.o Potion.o Item.o Enemy.o Backpack.o HiPotion.o
+OBJS = main.o getInput.o Forest.o Town.o Dungeon.o Character.o Knight.o Space.o Die.o Game.o Enemy.o
 
-SRCS = main.cpp getInput.cpp Forest.cpp Town.cpp Character.cpp Knight.cpp Space.cpp Die.cpp Game.cpp Potion.cpp Item.cpp Enemy.cpp Backpack.cpp HiPotion.cpp
+SRCS = main.cpp getInput.cpp Forest.cpp Town.cpp Character.cpp Knight.cpp Space.cpp Die.cpp Game.cpp Enemy.cpp
 
-HEADERS = getInput.hpp Forest.hpp Space.hpp Town.hpp Character.hpp Knight.hpp Dungeon.hpp Die.hpp Game.hpp Potion.hpp Item.hpp Enemy.hpp Backpack.hpp HiPotion.hpp
+HEADERS = getInput.hpp Forest.hpp Space.hpp Town.hpp Character.hpp Knight.hpp Dungeon.hpp Die.hpp Game.hpp Enemy.hpp
 
 TARGET = main
 

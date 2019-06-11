@@ -16,7 +16,7 @@
 #include <cstdlib>
 Enemy::Enemy()
 {
-    HP = rand() % (20-15 +1) + 15; //random between 10 and 25
+    HP = rand() % (15-10 +1) + 10; //random between 10 and 15
     d12 = new Die(12);
     maxHP = HP;
     type = "Enemy";

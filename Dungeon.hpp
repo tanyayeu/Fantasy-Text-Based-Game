@@ -28,7 +28,7 @@ public:
     void printInfo() override;
     Dungeon();
     ~Dungeon();
-    void interact(Character *, int &, Backpack *) override;
+    void interact(Character *, int &) override;
     Character *creature, *finalBoss;
     void battle(Character *p, Character *creature);
 };

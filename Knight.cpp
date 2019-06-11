@@ -32,7 +32,7 @@ Knight::Knight()
     maxHP = 20;
     type = "Knight";
     d6 = new Die(6); //knight will attack with 2d6
-    gold = 50;
+    gold = 75;
 }
 
 

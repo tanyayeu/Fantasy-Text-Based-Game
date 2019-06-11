@@ -40,8 +40,10 @@ public:
     int getGold();
     void setGold(int g);
     void addToBP(char x);
-    void useItem(char x);
+    void useItem(int n);
     void openBP();
+    int getNumBP();
+    bool isEmpty();
 };
 #endif
 

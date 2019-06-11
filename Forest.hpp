@@ -21,7 +21,7 @@ class Forest: public Space
 public:
     Forest();
     void printInfo() override;
-    void interact(Character*p, int &townHealth, Backpack *b) override;
+    void interact(Character*p, int &townHealth) override;
     void battle(Character *p, Character *creature);
     Character *creature;
     ~Forest();
