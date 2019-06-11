@@ -30,6 +30,7 @@ Game::Game()
 {
     player = new Knight;
     createMap();
+    Item backpack[backpackSize];
 }
 
 void Game::playGame()
@@ -53,6 +54,11 @@ void Game::playGame()
         cout << "Town Health: " << townHealth << endl << endl;
 
         cout << "You are currently in " << playerLoc->getName() << endl;
+        //town events need to happen here
+        playerLoc->interact();
+        //battle
+        //get items.. etc.
+
         displayArea();
         cout << "Where would you like to travel to?" << endl;
         cout << "Direction: ";
@@ -279,6 +285,19 @@ void Game::displayArea()
     }
 }
 
+/* 
+ * ===  FUNCTION =============================================================
+ *         Name:  showBackpack()
+ *  Description:  Displays contents of the backpack
+ * ============================================================================
+ */
+void Game::showBackpack()
+{
+    for(int i=0;i<backpackSize; i++)
+    {
+        cout << i << backpack[i].getName() << endl;
+    }
+}
 /* 
  * ===  FUNCTION =============================================================
  *         Name:  ~Game()

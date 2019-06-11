@@ -18,12 +18,13 @@
 #include <string>
 #include "Character.hpp"
 #include "Space.hpp"
+#include "Item.hpp"
 
 class Game
 {
 private:
     int attackRoll, defenseRoll, totalDamage, townHealth = 50;
-    Character *player;
+    Character *player, *enemy;
     Space *Home,
           *Rivendell,
           *Fangorn,
@@ -31,6 +32,7 @@ private:
           *Deadwood,
           *Moria,
           *playerLoc;
+    int backpackSize = 6;
     
 public:
     Game();
@@ -41,6 +43,8 @@ public:
     void printMap();
     bool isValidDir(int dir);
     void intro();
+    void showBackpack();
+    void addTobp(Item item);
     ~Game();
 };
 #endif

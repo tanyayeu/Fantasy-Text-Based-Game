@@ -25,5 +25,7 @@ public:
     void spawnEnemy() override;
     Dungeon();
     ~Dungeon();
+    void interact() override;
+    void explore() override;
 };
 #endif

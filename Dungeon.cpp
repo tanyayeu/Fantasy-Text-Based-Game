@@ -13,6 +13,9 @@
  * ============================================================================
  */
 #include "Dungeon.hpp"
+#include <iostream>
+using std::cout;
+using std::endl;
 
 Dungeon::Dungeon()
 {
@@ -20,7 +23,7 @@ Dungeon::Dungeon()
 }
 void Dungeon::printInfo()
 {
-    //dungeon info
+    cout << "You have entered the Dungeon Moria.";
 }
 
 void Dungeon::spawnEnemy()
@@ -28,7 +31,14 @@ void Dungeon::spawnEnemy()
     //spawn enemy
 }
 
+void Dungeon::interact()
+{
+    cout << "1. Explore\n";
+    cout << "2. ";
+}
 Dungeon::~Dungeon()
 {
 
 }
+
+

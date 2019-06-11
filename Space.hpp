@@ -15,6 +15,8 @@
 #ifndef SPACE_HPP
 #define SPACE_HPP
 #include <string>
+#include "Item.hpp"
+#include "Character.hpp"
 using std::string;
 
 class Space
@@ -31,6 +33,8 @@ public:
     virtual void spawnEnemy() = 0;
     virtual void printInfo() = 0;
     Space *top, *left, *right, *bottom; //4 space pointers
+    virtual void interact(Character *p, int &townHealth, Item *&) = 0;
+    virtual void explore() = 0;
 
 };
 #endif

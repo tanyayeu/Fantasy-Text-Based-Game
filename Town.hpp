@@ -22,6 +22,8 @@ class Town: public Space
 public:
     void printInfo() override;
     void spawnEnemy() override;
+    void interact(Character *p, int &townHealth, Item *&) override;
+    void explore() override;
     Town();
     ~Town();
 };
