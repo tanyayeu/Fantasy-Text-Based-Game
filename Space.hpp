@@ -25,6 +25,7 @@ protected:
     string name, //name of space
            type; //type of space
     bool BossDefeated;
+    bool hasGoods;
 public:
     string getName();
     string getType();
@@ -33,7 +34,8 @@ public:
     virtual void printInfo() = 0;
     Space *top, *left, *right, *bottom; //4 space pointers
     virtual void interact(Character *p, int &townHealth) = 0;
-    void setIsBossDefeated();
+    void setIsBossDefeated(bool);
     bool isBossDefeated();
+    void setHasGoods(bool);
 };
 #endif

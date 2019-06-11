@@ -16,7 +16,7 @@
 
 Space::Space()
 {
-
+    hasGoods = false;
 }
 
 string Space::getType()
@@ -37,12 +37,17 @@ Space::~Space()
 
 }
 
-void Space::setIsBossDefeated()
+void Space::setIsBossDefeated(bool x)
 {
-    BossDefeated = true;
+    BossDefeated = x;
 }
 
 bool Space::isBossDefeated()
 {
     return BossDefeated;
+}
+
+void Space::setHasGoods(bool x)
+{
+    hasGoods = x;
 }

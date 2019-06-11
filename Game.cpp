@@ -50,7 +50,7 @@ void Game::playGame()
     //map of area
     printMap();
 
-    while(townHealth>=0 && player->getHP() > 0 && playerLoc->isBossDefeated()==false)
+    while(townHealth>=0 && player->getHP() > 0 && playerLoc->isBossDefeated()==false&&townHealth >0)
     {
         cout << "Town Health: " << townHealth << "HP"<< endl;
         cout << "Your Health: " << player->getHP() << "HP" << endl; 
@@ -58,7 +58,7 @@ void Game::playGame()
 
         playerLoc->printInfo();
         playerLoc->interact(player, townHealth);
-        if(player->getHP()>0)
+        if(player->isAlive()==true &&playerLoc->isBossDefeated()==false && townHealth>0)
         {
             do
             {
@@ -109,9 +109,19 @@ void Game::playGame()
 
             townHealth -= 5;
         }
-        else
+        if(player->isAlive() == false || townHealth <=0)
         {
+            if(townHealth<=0)
+            {
+                cout << "The town has been completely overrun. You're too late\n";
+            }
             cout << "Game over..." << endl;
+        }
+        if(player->isAlive() == true && playerLoc->isBossDefeated() == true)
+        {
+            cout << "== CONGRATULATIONS ==" << endl;
+            cout << "The evil is defeated and you saved the town! The creatures";
+            cout <<" disppear\ninto the night sky and you are heralded as a hero.\n";
         }
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
         cout << endl;
@@ -130,17 +140,19 @@ void Game::intro()
     cout << " overrun. You can\nchoose to travel to Rivendell first to get";
     cout << " supplies for your journey or head\nstraight to the dungeon.";
     cout << " Either way, you will have to travel through the\nforests ";
-    cout << " where enemies lie. Each day, the town will lose 5HP. If HP";
+    cout << " where enemies lie. Each day, the town will lose 5HP. If Town HP";
     cout << " drops to 0\n or you lose all your HP the game is over.\n";
     cout << endl;
     cout << "== Backpack ==" << endl;
     cout << "Your backpack can hold up to 6 items."<<endl<<endl;
     cout << "== Towns ==" << endl;
     cout << "You can choose to rest up here or buy potions. If you rest,";
-    cout << " you will gain 5HP,\nbut the town will lose 5HP.";
-    cout << endl <<endl;
+    cout << " you will gain 5HP,\nbut the town will lose 5HP. Rivendell";
+    cout << " sells Revives. Spend your gold wisely!" << endl;
+    cout << endl;
     cout << "== Forests ==" << endl;
-    cout << "Creatures infest the forest. Prepare to battle there.\n"<<endl;
+    cout << "Creatures infest the forest. Prepare to battle there.\n";
+    cout << "If you defeat the creatures you will get +5g" << endl<<endl;
     cout << "== Dungeon ==" << endl;
     cout << "You must defeat the Boss in the Dungeon to close the portal";
     cout << " and save your town." <<endl;
@@ -198,6 +210,7 @@ void Game::createMap()
     Rivendell->top = nullptr;
     Rivendell->bottom = Fangorn;
     Rivendell->right = Mirkwood;
+    Rivendell->setHasGoods(true);
 
     Moria->left = Mirkwood;
     Moria->bottom = Deadwood;

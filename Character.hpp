@@ -44,6 +44,9 @@ public:
     void openBP();
     int getNumBP();
     bool isEmpty();
+    bool hasRevive();
+    void useRevive();
+    bool isAlive();
 };
 #endif
 

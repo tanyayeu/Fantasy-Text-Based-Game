@@ -119,6 +119,10 @@ void Character::useItem(int n)
         backpack.erase(backpack.begin() + n);
         return;
     }
+    if(backpack[n] == 'R')
+    {
+        cout << "Let's save that for battle!" << endl;
+    }
 }
 //https://www.geeksforgeeks.org/stdstringerase-in-cpp/
 
@@ -132,4 +136,49 @@ bool Character::isEmpty()
     {
         return false;
     }
+}
+
+bool Character::hasRevive()
+{
+    bool r;
+    for(int i=0; i<backpack.size(); i++)
+    {
+        if(backpack[i] == 'R')
+        {
+            r = true;
+            break;
+        }
+        else
+        {
+            r = false;
+        }
+    }
+    return r;
+}
+
+void Character::useRevive()
+{
+    int index = 0;
+    for(int i=0; i<backpack.size(); i++)
+    {
+        if(backpack[i] == 'R')
+        {
+            index = i;
+            break;
+        }
+    }
+    recover(20);
+    cout << "Using a revive... You now have " << this->getHP() << "HP" << endl;
+    backpack.erase(backpack.begin() + index);
+    return;
+}
+
+bool Character::isAlive()
+{
+    bool alive = true;
+    if(this->getHP()<=0)
+    {
+        alive = false;
+    }
+    return alive;
 }

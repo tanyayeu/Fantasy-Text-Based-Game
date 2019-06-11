@@ -49,7 +49,6 @@ Forest::~Forest()
 
 void Forest::battle(Character* p, Character *creature)
 {
-    creature = new Enemy;
     int attackRoll,defenseRoll,totalDamage;
     creature->printStats();
     cout << endl;
@@ -57,6 +56,7 @@ void Forest::battle(Character* p, Character *creature)
     cout << "== BATTLING ==" << endl;
     do
     {
+        //player attacks creature
         attackRoll = p->attack();
         defenseRoll = creature->defend();
         totalDamage = attackRoll - defenseRoll;
@@ -70,7 +70,7 @@ void Forest::battle(Character* p, Character *creature)
         creature->setHP(creature->getHP()-totalDamage);
         cout << "Enemy HP: "<<creature->getHP() <<"HP"<<endl;
         cout << "------------------------------------------------------------" <<endl;
-
+        //creature attacks player
         if(p->getHP()>0 && creature->getHP()>0)
         {
             attackRoll = creature->attack();
@@ -85,19 +85,25 @@ void Forest::battle(Character* p, Character *creature)
             p->setHP(p->getHP()-totalDamage);
             cout << "Your HP:  " << p->getHP()<<"HP"<<endl;
             cout << "Enemy HP: " <<creature->getHP()<<"HP\n";
+            if(p->getHP() <=0 && p->hasRevive())
+            {
+                cout << "You have a Revive in your backpack!" << endl;
+                p->useRevive();
+            }
             cout<<"------------------------------------------------------------" <<endl;
         }
     }while(p->getHP()>0 && creature->getHP()>0);
     if(p->getHP()>0)
     {
-        cout << "You defeated the creature!" << endl;
+        cout << "You defeated the creature! +5g" << endl;
         cout << "Your HP:  " << p->getHP() << "HP" <<endl;
+        p->setGold(p->getGold()+5);
     }
     else
     {
-        cout << "You were defeated. Game over." << endl;
+        cout << "You were defeated... you limp away with 1HP" << endl;
+        p->setHP(1);
     }
-    delete creature;
 
 }
 

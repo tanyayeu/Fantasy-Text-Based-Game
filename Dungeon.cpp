@@ -35,8 +35,9 @@ void Dungeon::printInfo()
 void Dungeon::interact(Character *p, int &townHealth)
 {
     int input, chance;
+    finalBoss = new Enemy();
     cout << "Do you want to light a torch? If you light a torch, you will";
-    cout << " alert the creatures of\nyour presence. If you don't, you will";
+    cout << " alert the creatures of\nyour presence. If you don't, you will ";
     cout << "be at a disadvantage fighting the wizard." << endl;
     cout << "1. Yes. Light torch (battle)" << endl;
     cout << "2. No. stay in the dark (-5HP)" << endl;
@@ -49,22 +50,71 @@ void Dungeon::interact(Character *p, int &townHealth)
             cout << "You light a torch. A creature starts screeching";
             cout << " and approaches you." << endl;
             isLit = true;
+            creature = new Enemy;
             battle(p,creature);
+            delete creature;
             break;
         case 2:
             cout << "You have chosen to stay in the dark (-5HP)" <<endl;
             p->setHP(p->getHP()-5);
             isLit = false;
             break;
-
             //end torch consequences
     }
-    cout << "You venture deeper into the dungeon..." << endl;
-    chance = rand() % 10 + 1;
-    if(isLit && chance >=5) //if lit, 50% chance to battle again
+
+    //continue if player is still alive
+    if(p->isAlive() == true)
     {
-        cout << "Another creature is alerted of your presence!" << endl;
-        battle(p,creature);
+        cout << "You venture deeper into the dungeon..." << endl;
+        chance = rand() % 10 + 1;
+        //if its lit, higher chance of fighting again
+        if(isLit && chance >=3) 
+        {
+            cout << "Another creature is alerted of your presence!" << endl;
+            creature = new Enemy;
+            battle(p,creature);
+            /*  
+                if(p->isAlive() == true)
+                {
+                do
+                {
+                cout << "1. Open backpack" << endl << "2. Keep going" << endl;
+                input = getInput(1,2);
+                if(input ==1)
+                {
+                p->openBP();
+                if(p->isEmpty() == false)
+                {
+                cout << "Use an item?" << endl;
+                cout << "1. Yes\n" << "2. No\n";
+                choice = getInput(1,2);
+                if(choice ==1)
+                {
+                cout << "Which item would you like to use?" << endl;
+                itemIndex = getInput(1,p->getNumBP());
+                p->useItem(itemIndex);
+                }
+                }
+
+                }
+                }while(input!=2);
+                } */
+            delete creature;
+        }
+        //end chance encounter
+        if(p->isAlive()==true)
+        {
+            cout << "\nYou're in the very depths of Moria now... You see the Dark Wizard";
+            cout << " doing... THINGS" << endl;
+            cout << "== YOU: HEY PINHEAD!" << endl;
+            cout << "== HIM: Who you callin a pinhead??" << endl << endl;
+            finalBoss->setHP(30);
+            battle(p,finalBoss);
+            if(p->isAlive()==true)
+            {
+                this->setIsBossDefeated(true);
+            }
+        }
     }
 }
 Dungeon::~Dungeon()
@@ -74,8 +124,7 @@ Dungeon::~Dungeon()
 
 void Dungeon::battle(Character* p, Character *creature)
 {
-    creature = new Enemy;
-    int attackRoll,defenseRoll,totalDamage;
+    int attackRoll,defenseRoll,totalDamage, input,itemIndex,choice;
     creature->printStats();
     cout << endl;
     p->printStats();
@@ -89,7 +138,7 @@ void Dungeon::battle(Character* p, Character *creature)
         {
             totalDamage = 0;
         }
-        cout << "You attack the creature for "<< totalDamage;
+        cout << "You attacked the Enemy for "<< totalDamage;
         cout << " damage." << endl;
         cout << "Your HP:  " << p->getHP() << "HP"<<endl;
         creature->setHP(creature->getHP()-totalDamage);
@@ -105,27 +154,57 @@ void Dungeon::battle(Character* p, Character *creature)
             {   
                 totalDamage = 0;
             }
-            cout << "The creature attacked you for "<<totalDamage;
+            cout << "The Enemy attacked you for "<<totalDamage;
             cout << " damage." << endl;
             p->setHP(p->getHP()-totalDamage);
             cout << "Your HP:  " << p->getHP()<<"HP"<<endl;
             cout << "Enemy HP: " <<creature->getHP()<<"HP\n";
+            if(p->getHP() <=0 && p->hasRevive())
+            {
+                cout << "You have a Revive in your backpack!" << endl;
+                p->useRevive();
+            }
+
             cout<<"------------------------------------------------------------" <<endl;
         }
     }while(p->getHP()>0 && creature->getHP()>0);
     if(p->getHP()>0)
     {
-        cout << "You defeated the creature!" << endl;
+        cout << "You defeated the Enemy!" << endl;
         cout << "Your HP:  " << p->getHP() << "HP" <<endl;
+        if(p->isAlive() == true)
+        {
+            do
+            {
+                cout << "1. Open backpack" << endl << "2. Keep going" << endl;
+                input = getInput(1,2);
+                if(input ==1)
+                {
+                    p->openBP();
+                    if(p->isEmpty() == false)
+                    {
+                        cout << "Use an item?" << endl;
+                        cout << "1. Yes\n" << "2. No\n";
+                        choice = getInput(1,2);
+                        if(choice ==1)
+                        {
+                            cout << "Which item would you like to use?" << endl;
+                            itemIndex = getInput(1,p->getNumBP());
+                            p->useItem(itemIndex);
+                        }
+                    }
+
+                }
+            }while(input!=2);
+
+        }
+        else
+        {
+            cout << "You were defeated!" << endl;
+        }
+
     }
-    else
-    {
-        cout << "You were defeated!" << endl;
-    }
-    delete creature;
 
 }
-
-
 
 

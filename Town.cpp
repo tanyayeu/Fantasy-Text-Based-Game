@@ -46,9 +46,16 @@ void Town::interact(Character *p, int &townHealth)
         switch(input)
         {
             case 1:
-                p->recover(5);
-                cout << "You now have " << p->getHP() << "HP" << endl;
-                townHealth -=5;
+                if(townHealth>=5)
+                {
+                    townHealth -=5;
+                    p->recover(5);
+                    cout << "You now have " << p->getHP() << "HP" << endl;
+                }
+                else
+                {
+                    cout << "The town is almost overrun" << endl;
+                }
                 cout << "Town Health: " << townHealth <<"HP"<< endl;
                 break;
             case 2:
@@ -59,12 +66,38 @@ void Town::interact(Character *p, int &townHealth)
                     {
                         cout << "\n== At the shop ==" << endl;
                         cout << "Gold: " << p->getGold() <<"g" << endl;
+                        if(hasGoods)
+                        {
+                            cout << "0. Buy Revive....+20HP...35g" << endl;
+                        }
                         cout << "1. Buy Potion....+5HP....10g" << endl;
                         cout << "2. Buy Hi-Potion.+10HP...15g" << endl;
                         cout << "3. Exit" << endl;
+                        if(hasGoods)
+                        {
+                            input2 = getInput(0,3);
+                        }
+                        if(!hasGoods)
+                        {
+
                         input2= getInput(1,3);
+                        }
                         switch(input2)
                         {
+                            case 0:
+                                cout << "That'll be 35g, thanks!" << endl;
+                                if(p->getGold()>=35)
+                                {
+                                    p->setGold(p->getGold()-35);
+                                    p->addToBP('R');
+                                    cout << "You have " << p->getNumBP() << " items\n";
+
+                                }
+                                else
+                                {
+                                    cout << "You don't have enough money for that!\n";
+                                }
+                                break;
                             case 1:
                                 //add stuff to backpack
                                 cout << "That'll be 10g, thanks!" << endl;
@@ -96,10 +129,11 @@ void Town::interact(Character *p, int &townHealth)
             case 3:
                 break;
         }
-    }while(input!=3);
+    }while(input!=3 && townHealth>0);
 }
 
 Town::~Town()
 {
 
 }
+
