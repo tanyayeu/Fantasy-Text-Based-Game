@@ -21,7 +21,7 @@ using std::string;
 class Character
 {
 protected:
-    int HP, maxHP; //health points
+    int HP, maxHP, gold; //health points
     string type;
     Character();
 
@@ -34,6 +34,8 @@ public:
     int getMaxHP();
     virtual void printStats() = 0;
     virtual ~Character();
+    int getGold();
+    void setGold(int g);
 };
 #endif
 

@@ -46,3 +46,13 @@ Character::~Character()
 {
 
 }
+
+int Character::getGold()
+{
+    return gold;
+}
+
+void Character::setGold(int g)
+{
+    gold =g;
+}

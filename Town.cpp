@@ -17,6 +17,7 @@
 #include <String>
 #include "Item.hpp"
 #include "getInput.hpp"
+#include "Potion.hpp"
 using std::string;
 using std::cout;
 using std::endl;
@@ -31,7 +32,7 @@ void Town::printInfo()
     cout << "You have entered the town of " << this->getName() << ".";
 }
 
-void Town::interact(Character *p, int &townHealth, Item *&backpack)
+void Town::interact(Character *p, int &townHealth, Backpack *&backpack)
 {
     int input;
     //1 explore
@@ -61,18 +62,20 @@ void Town::interact(Character *p, int &townHealth, Item *&backpack)
             int input2;
             do
             {
+                cout << "Gold: " << p->getGold() <<"g" << endl;
                 cout << "1. Buy Potion....+5HP....10g" << endl;
                 cout << "2. Buy Hi-Potion.+10HP...15g" << endl;
-                cout << "4. Buy Bomb......-10HP...30g" << endl;
-                cout << "5. Buy Poision...-15HP...35g" << endl;
-                cout << "6. Exit" << endl;
-                input2= getInput(1,5);
+                cout << "3. Exit" << endl;
+                input2= getInput(1,3);
                 switch(input2)
                 {
                     case 1:
+                        Item *potion = new Potion;
+                        p->setGold(p->getGold()-10);
+                        backpack->add(potion);
 
                 }
-            }while(input2!=6);
+            }while(input2!=6 && p->getGold()>10);
     }
 }
 void Town::explore()

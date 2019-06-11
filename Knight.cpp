@@ -89,6 +89,11 @@ int Knight::getGold()
     return gold;
 }
 
+void Knight::setGold(int g)
+{
+    gold = g;
+}
+
 /* 
  * ===  FUNCTION  =============================================================
  *         Name:  ~Knight()

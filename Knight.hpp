@@ -27,6 +27,7 @@ public:
     int defend() override;
     void printStats() override;
     int getGold();
+    void setGold(int g);
     ~Knight();
     Die *d6 = nullptr;
 };

@@ -20,12 +20,13 @@
 using std::string;
 class Item
 {
-private:
+protected:
     string name;
     Item *next, *prev;
 public:
-    void use(Character *player, Character *enemy);
+    virtual void use(Character *player, Character *enemy) = 0;
     string getName();
     friend class Backpack;
 };
 #endif
+
