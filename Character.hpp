@@ -31,6 +31,7 @@ public:
     int getHP();
     string getType();
     void recover(int n); //for potions
+    void setHP(int n);
     int getMaxHP();
     virtual void printStats() = 0;
     virtual ~Character();

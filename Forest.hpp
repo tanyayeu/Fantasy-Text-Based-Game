@@ -20,8 +20,9 @@ class Forest: public Space
 {
 public:
     Forest();
-    void spawnEnemy() override;
     void printInfo() override;
+    void interact(Character*p, int &townHealth, Backpack *b) override;
+
     ~Forest();
 };
 #endif

@@ -18,12 +18,8 @@ Potion::Potion()
 {
     name = "Potion";
 }
-void Potion::use(Character* p, Character *e)
+void Potion::use(Character* p)
 {
     p->recover(recovery);
 }
 
-HiPotion::HiPotion()
-{
-    name = "HiPotion";
-}

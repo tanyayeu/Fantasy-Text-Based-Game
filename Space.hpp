@@ -31,11 +31,9 @@ public:
     string getType();
     void setName(string n);
     virtual ~Space();
-    virtual void spawnEnemy() = 0;
     virtual void printInfo() = 0;
     Space *top, *left, *right, *bottom; //4 space pointers
-    virtual void interact(Character *p, int &townHealth, Backpack *&b) = 0;
-    virtual void explore() = 0;
+    virtual void interact(Character *p, int &townHealth, Backpack *b) = 0;
 
 };
 #endif

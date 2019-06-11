@@ -1,11 +1,11 @@
 /*
  * ============================================================================
  *
- *       Filename:  Potion.hpp
+ *       Filename:  Item.cpp
  *
  *    Description:  
- *           
- *           Date:
+ *             
+ *           Date:  
  *
  *         Author:  TANYA YEU
  *   Organization:  Oregon State University
@@ -13,18 +13,18 @@
  * ============================================================================
  */
 
-#ifndef POTION_HPP
-#define POTION_HPP
-#include "Character.hpp"
 #include "Item.hpp"
-class Potion: public Item
+
+Item::~Item()
 {
-protected:
-    int recovery = 5;
-public:
-    Potion();
-    void use(Character* player);
 
-};
-#endif
+}
+string Item::getName()
+{
+    return name;
+}
 
+void Item::use(Character *p)
+{
+
+}

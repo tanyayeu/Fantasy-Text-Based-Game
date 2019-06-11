@@ -13,11 +13,12 @@
  * ============================================================================
  */
 #include "Enemy.hpp"
+#include <cstdlib>
 Enemy::Enemy()
 {
-    HP = 10;
-    maxHP = 10;
+    HP = rand() % (25-15 +1) + 15; //random between 10 and 25
     d12 = new Die(12);
+    maxHP = HP;
     type = "Enemy";
 }
 
@@ -39,7 +40,7 @@ Enemy::defend()
 void Enemy::printStats()
 {
     cout << "== Enemy Stats ==" << endl;
-    cout << "HP:     " << HP << endl;
+    cout << "HP:      " << HP << endl;
     cout << "Attack:  1d12" << endl;
     cout << "Defense: 1d12" << endl;
     cout << "=================" << endl;

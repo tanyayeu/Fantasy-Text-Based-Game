@@ -23,6 +23,11 @@ int Character::getHP()
     return HP;
 }
 
+void Character::setHP(int n)
+{
+    HP = n;
+}
+
 string Character::getType()
 {
     return type;

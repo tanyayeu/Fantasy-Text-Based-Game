@@ -1,30 +1,21 @@
 /*
  * ============================================================================
  *
- *       Filename:  Potion.hpp
+ *       Filename:  HiPotion.cpp
  *
  *    Description:  
- *           
- *           Date:
+ *             
+ *           Date:  
  *
  *         Author:  TANYA YEU
  *   Organization:  Oregon State University
  *
  * ============================================================================
  */
+#include "HiPotion.hpp"
 
-#ifndef POTION_HPP
-#define POTION_HPP
-#include "Character.hpp"
-#include "Item.hpp"
-class Potion: public Item
+HiPotion::HiPotion()
 {
-protected:
-    int recovery = 5;
-public:
-    Potion();
-    void use(Character* player);
-
-};
-#endif
+    recovery = 10;
+}
 

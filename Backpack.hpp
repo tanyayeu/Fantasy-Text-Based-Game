@@ -19,13 +19,14 @@
 class Backpack
 {
 private:
-    Item *head;
+    Item *head, *tail;
     int size = 6;
 public:
     Backpack();
     ~Backpack();
-    void showBackpack();
+    void showBackpack(Character *p);
     void add(Item *item);
     void removeItem(string name);
+    int  count();
 };
 #endif

@@ -21,6 +21,7 @@
 #include <ctime>
 #include "Town.hpp"
 #include "Dungeon.hpp"
+#include "Backpack.hpp"
 #include "Space.hpp"
 #include <cstddef>
 using std::cout;
@@ -30,13 +31,16 @@ Game::Game()
 {
     player = new Knight;
     createMap();
-    Item backpack[backpackSize];
+    //Backpack *backpack = new Backpack;
+    Backpack backpack;
 }
 
 void Game::playGame()
 {
     unsigned seed;
     seed = time(0);
+    int choice;
+    Backpack backpack;
     srand(seed);
     int dir; //direction to go in
     playerLoc = Home; //starting location is home
@@ -49,16 +53,37 @@ void Game::playGame()
     //map of area
     printMap();
 
-    while(townHealth>=0)
+    while(townHealth>=0 && player->getHP() > 0)
     {
-        cout << "Town Health: " << townHealth << endl << endl;
+        cout << "Town Health: " << townHealth << "HP"<< endl;
+        cout << "Your Health: " << player->getHP() << "HP" << endl; 
+        cout << "Gold:        " << player->getGold() << "g" << endl<<endl;
 
-        cout << "You are currently in " << playerLoc->getName() << endl;
         //town events need to happen here
-        playerLoc->interact();
+        playerLoc->printInfo();
+        playerLoc->interact(player, townHealth, &backpack);
         //battle
         //get items.. etc.
-
+        do
+        {
+        cout << "== MENU ==" <<endl;
+        cout << "1. Open backpack" << endl;
+        cout << "2. Show map" << endl;
+        cout << "3. Continue on" << endl;
+        choice = getInput(1,3);
+        switch(choice)
+        {
+            case 1:
+                backpack.showBackpack(player);
+                break;
+            case 2:
+                printMap();
+                cout << endl;
+                break;
+            case 3:
+                break;
+        };
+        }while(choice!=3);
         displayArea();
         cout << "Where would you like to travel to?" << endl;
         cout << "Direction: ";
@@ -74,6 +99,8 @@ void Game::playGame()
             travel(dir);
         }
         townHealth -= 5;
+        cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+        cout << endl;
     }
 }
 void Game::intro()
@@ -89,7 +116,18 @@ void Game::intro()
     cout << " overrun. You can\nchoose to travel to Rivendell first to get";
     cout << " supplies for your journey or head\nstraight to the dungeon.";
     cout << " Either way, you will have to travel through the\nforests ";
-    cout << " where enemies lie." << endl;
+    cout << " where enemies lie. Each day, the town will lose 5HP. If HP";
+    cout << " drops to 0\n or you lose all your HP the game is over.\n";
+    cout << endl;
+    cout << "== Towns ==" << endl;
+    cout << "You can choose to rest up here or buy potions. If you rest,";
+    cout << " you will gain 5HP,\nbut the town will lose 5HP.";
+    cout << endl <<endl;
+    cout << "== Forests ==" << endl;
+    cout << "Creatures infest the forest. Prepare to battle there.\n"<<endl;
+    cout << "== Dungeon ==" << endl;
+    cout << "You must defeat the Boss in the Dungeon to close the portal";
+    cout << " and save your town." <<endl;
     cout << "==============================================================";
     cout <<"================";
     cout << endl << endl;
@@ -285,19 +323,6 @@ void Game::displayArea()
     }
 }
 
-/* 
- * ===  FUNCTION =============================================================
- *         Name:  showBackpack()
- *  Description:  Displays contents of the backpack
- * ============================================================================
- */
-void Game::showBackpack()
-{
-    for(int i=0;i<backpackSize; i++)
-    {
-        cout << i << backpack[i].getName() << endl;
-    }
-}
 /* 
  * ===  FUNCTION =============================================================
  *         Name:  ~Game()

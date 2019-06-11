@@ -24,9 +24,10 @@ protected:
     string name;
     Item *next, *prev;
 public:
-    virtual void use(Character *player, Character *enemy) = 0;
+    void use(Character *player);
     string getName();
     friend class Backpack;
+    ~Item();
 };
 #endif
 

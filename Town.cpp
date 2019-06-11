@@ -29,35 +29,33 @@ Town::Town()
 
 void Town::printInfo()
 {
-    cout << "You have entered the town of " << this->getName() << ".";
+    cout << "== " << this->getName() << " ==" << endl;
+    cout << "You have entered a town. From here you can rest up or";
+    cout << " buy potions." << endl;
 }
 
-void Town::interact(Character *p, int &townHealth, Backpack *&backpack)
+void Town::interact(Character *p, int &townHealth, Backpack *backpack)
 {
     int input;
     //1 explore
-    cout << "1. Explore" << endl;
-    /////////find random item
-
+    Item *potion;
     //2 rest
-    cout << "2. Rest" << endl;
+    cout << "1. Rest - You gain 5HP but the town loses 5HP" << endl;
     ////////+5 health, -5 townhealth
-    cout << "3. Go to shop" << endl;
+    cout << "2. Go to shop" << endl;
+    cout << "3. Continue on" << endl;
     //3 Go to shop
     //4 contine on
-    input = getInput(1,4);
+    input = getInput(1,3);
     switch(input)
     {
         case 1:
-            //explore
+            p->recover(5);
+            cout << "You now have " << p->getHP() << "HP" << endl;
+            townHealth -=5;
+            cout << "Town Health: " << townHealth <<"HP"<< endl;
             break;
         case 2:
-            p->recover(5);
-            cout << "You now have " << p->getHP() << " HP" << endl;
-            townHealth -=5;
-            cout << "Town Health: " << townHealth << endl;
-            break;
-        case 3:
             cout << "== At the shop ==" << endl;
             int input2;
             do
@@ -70,24 +68,18 @@ void Town::interact(Character *p, int &townHealth, Backpack *&backpack)
                 switch(input2)
                 {
                     case 1:
-                        Item *potion = new Potion;
+                        potion = new Potion;
                         p->setGold(p->getGold()-10);
                         backpack->add(potion);
 
                 }
-            }while(input2!=6 && p->getGold()>10);
+            }while(input2!=3 && p->getGold()>10);
+            break;
+        case 3:
+            break;
     }
 }
-void Town::explore()
-{
-    
-}
 
-
-void Town::spawnEnemy()
-{
-
-}
 Town::~Town()
 {
 

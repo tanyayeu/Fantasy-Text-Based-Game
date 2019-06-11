@@ -79,22 +79,6 @@ void Knight::printStats()
 }
 
 /* 
- * ===  FUNCTION =============================================================
- *         Name:  getGold()
- *  Description:  This returns gold
- * ============================================================================
- */
-int Knight::getGold()
-{
-    return gold;
-}
-
-void Knight::setGold(int g)
-{
-    gold = g;
-}
-
-/* 
  * ===  FUNCTION  =============================================================
  *         Name:  ~Knight()
  *  Description:  Deconstructor. Deletes the die object and sets pointer to

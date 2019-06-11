@@ -15,6 +15,8 @@
 #ifndef DUNGEON_HPP
 #define DUNGEON_HPP
 #include "Space.hpp"
+#include "Character.hpp"
+#include "Enemy.hpp"
 #include <string>
 using std::string;
 
@@ -22,10 +24,10 @@ class Dungeon: public Space
 {
 public:
     void printInfo() override;
-    void spawnEnemy() override;
     Dungeon();
     ~Dungeon();
-    void interact() override;
-    void explore() override;
+    void interact(Character *, int &, Backpack *) override;
+    bool isLit();
+    Character *creature, *finalBoss;
 };
 #endif

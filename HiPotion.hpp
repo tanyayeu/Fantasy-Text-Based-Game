@@ -1,7 +1,7 @@
 /*
  * ============================================================================
  *
- *       Filename:  Town.hpp
+ *       Filename:  HiPotion.hpp
  *
  *    Description:  
  *           
@@ -12,17 +12,12 @@
  *
  * ============================================================================
  */
-#ifndef TOWN_HPP
-#define TOWN_HPP
-#include "Space.hpp"
-#include <string>
-
-class Town: public Space
+#include "Potion.hpp"
+#ifndef HIPOTION_HPP
+#define HIPOTION_HPP
+class HiPotion: public Potion
 {
 public:
-    void printInfo() override;
-    void interact(Character *p, int &townHealth, Backpack *) override;
-    Town();
-    ~Town();
+    HiPotion();
 };
 #endif
