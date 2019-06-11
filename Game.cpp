@@ -30,12 +30,15 @@ Game::Game()
 {
     player = new Knight;
     createMap();
+    townHealth = 50;
+    tipShown = false;
 }
 
 void Game::playGame()
 {
     unsigned seed;
     seed = time(0);
+    int choice, itemIndex, input;
     srand(seed);
     int dir; //direction to go in
     playerLoc = Home; //starting location is home
@@ -48,26 +51,87 @@ void Game::playGame()
     //map of area
     printMap();
 
-    while(townHealth>=0)
+    while(townHealth>=0 && player->getHP() > 0 && playerLoc->isBossDefeated()==false&&townHealth >0)
     {
-        cout << "Town Health: " << townHealth << endl << endl;
+        cout << "Town Health: " << townHealth << "HP"<< endl;
+        cout << "Your Health: " << player->getHP() << "HP" << endl; 
+        cout << "Gold:        " << player->getGold() << "g" << endl<<endl;
 
-        cout << "You are currently in " << playerLoc->getName() << endl;
-        displayArea();
-        cout << "Where would you like to travel to?" << endl;
-        cout << "Direction: ";
-        dir = getInput(1,4);
-        while(!isValidDir(dir))
+        playerLoc->printInfo();
+        playerLoc->interact(player, townHealth);
+        if(player->getGold()>35 && player->hasRevive() == false && !tipShown)
         {
-            cout << "That is not a valid direction." << endl;
+            cout << "== HELPFUL TIP: Having Revives is recommended! These are sold in ";
+            cout << "Rivendell." << endl;
+            tipShown = true;
+        }
+        if(player->isAlive()==true &&playerLoc->isBossDefeated()==false && townHealth>0)
+        {
+            do
+            {
+                cout << "== MENU ==" <<endl;
+                cout << "1. Open backpack" << endl;
+                cout << "2. Show map" << endl;
+                cout << "3. Continue on" << endl;
+                choice = getInput(1,3);
+                switch(choice)
+                {
+                    case 1:
+                        player->openBP();
+                        if(player->isEmpty() == false)
+                        {
+                            cout << "Use an item?" << endl;
+                            cout << "1. Yes\n" << "2. No\n";
+                            input = getInput(1,2);
+                            if(input ==1)
+                            {
+                                cout << "Which item would you like to use?" << endl;
+                                itemIndex = getInput(1,player->getNumBP());
+                                player->useItem(itemIndex);
+                            }
+                        }
+                        break;
+                    case 2:
+                        printMap();
+                        cout << endl;
+                        break;
+                    case 3:
+                        break;
+                };
+            }while(choice!=3);
+            displayArea();
+            cout << "Where would you like to travel to?" << endl;
             cout << "Direction: ";
             dir = getInput(1,4);
+            while(!isValidDir(dir, player))
+            {
+                cout << "That is not a valid direction." << endl;
+                cout << "Direction: ";
+                dir = getInput(1,4);
+            }
+            if(isValidDir(dir,player))
+            {
+                travel(dir);
+            }
+
+            townHealth -= 5;
         }
-        if(isValidDir(dir))
+        if(player->isAlive() == false || townHealth <=0)
         {
-            travel(dir);
+            if(townHealth<=0)
+            {
+                cout << "The town has been completely overrun. You're too late\n";
+            }
+            cout << "Game over..." << endl;
         }
-        townHealth -= 5;
+        if(player->isAlive() == true && playerLoc->isBossDefeated() == true)
+        {
+            cout << "== CONGRATULATIONS ==" << endl;
+            cout << "The evil is defeated and you saved the town! The creatures";
+            cout <<" disppear\ninto the night sky and you are heralded as a hero.\n";
+        }
+        cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+        cout << endl;
     }
 }
 void Game::intro()
@@ -83,7 +147,23 @@ void Game::intro()
     cout << " overrun. You can\nchoose to travel to Rivendell first to get";
     cout << " supplies for your journey or head\nstraight to the dungeon.";
     cout << " Either way, you will have to travel through the\nforests ";
-    cout << " where enemies lie." << endl;
+    cout << " where enemies lie. Each day, the town will lose 5HP. If Town HP";
+    cout << " drops to 0\n or you lose all your HP the game is over.\n";
+    cout << endl;
+    cout << "== Backpack ==" << endl;
+    cout << "Your backpack can hold up to 6 items."<<endl<<endl;
+    cout << "== Towns ==" << endl;
+    cout << "You can choose to rest up here or buy potions. If you rest,";
+    cout << " you will gain 5HP,\nbut the town will lose 5HP. Rivendell";
+    cout << " sells Revives. Spend your gold wisely!" << endl;
+    cout << endl;
+    cout << "== Forests ==" << endl;
+    cout << "Creatures infest the forest. Prepare to battle there.\n";
+    cout << "If you defeat the creatures you will get +5g" << endl<<endl;
+    cout << "== Dungeon ==" << endl;
+    cout << "You must defeat the Boss in the Dungeon to close the portal";
+    cout << " and save your town. You will need a key to enter, you can find";
+    cout << " one in the forest on a creature." << endl;
     cout << "==============================================================";
     cout <<"================";
     cout << endl << endl;
@@ -98,14 +178,14 @@ void Game::intro()
 void Game::createMap()
 {
     /*
-     ____________________________________
-    | Rivendell    | Mirkwood  | Moria   |
-    |--------------|-----------|---------|
-    | Fangorn      | Kirkwall  | Deadwood|
-    |____________________________________|
+       ____________________________________
+       | Rivendell    | Mirkwood  | Moria   |
+       |--------------|-----------|---------|
+       | Fangorn      | Kirkwall  | Deadwood|
+       |____________________________________|
 
 
-    */
+*/
     Home = new Town;
     Home->setName("Kirkwall");
     Rivendell = new Town;
@@ -138,6 +218,7 @@ void Game::createMap()
     Rivendell->top = nullptr;
     Rivendell->bottom = Fangorn;
     Rivendell->right = Mirkwood;
+    Rivendell->setHasGoods(true);
 
     Moria->left = Mirkwood;
     Moria->bottom = Deadwood;
@@ -148,7 +229,7 @@ void Game::createMap()
     Deadwood->left = Home;
     Deadwood->right = nullptr;
     Deadwood->bottom = nullptr;
-    
+
 }
 
 /* 
@@ -175,7 +256,7 @@ void Game::printMap()
  *                input.
  *============================================================================
  */
-bool Game::isValidDir(int dir)
+bool Game::isValidDir(int dir, Character *p)
 {
     if(dir==1)
     {
@@ -183,6 +264,12 @@ bool Game::isValidDir(int dir)
         {
             return false;
         }
+        if(playerLoc->top->getName() == "Moria" && p->hasKey() == false)
+        {
+            cout << "You need a key to enter Moria" << endl;
+            return false;
+        }
+
         else
         {
             return true;
@@ -192,6 +279,11 @@ bool Game::isValidDir(int dir)
     {
         if(playerLoc->right == nullptr)
         {
+            return false;
+        }
+        if(playerLoc->right->getName() == "Moria" && p->hasKey() == false)
+        {
+            cout << "You need a key to enter Moria" << endl;
             return false;
         }
         else
@@ -220,6 +312,10 @@ bool Game::isValidDir(int dir)
         {
             return true;
         }
+    }
+    else
+    {
+        return false;
     }
 }
 

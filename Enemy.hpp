@@ -1,7 +1,7 @@
 /*
  * ============================================================================
  *
- *       Filename:  Mage.hpp
+ *       Filename:  Enemy.hpp
  *
  *    Description:  This is the header file for Mage class
  *           
@@ -12,22 +12,23 @@
  *
  * ============================================================================
  */
-#ifndef MAGE_HPP
-#define MAGE_HPP
-#include "Character.hpp";
+#ifndef ENEMY_HPP
+#define ENEMY_HPP 
+#include "Character.hpp"
 #include "Die.hpp"
 #include <iostream>
 using std::cout;
 using std::endl;
 
-class Mage: public Character
+class Enemy: public Character
 {
 public:
-    Mage(); //constructor
+    Enemy(); //constructor
     int attack() override;
     int defend() override;
     Die *d12 = nullptr;
-    void burn();
+    void printStats() override;
+    ~Enemy();
 };
 #endif
 

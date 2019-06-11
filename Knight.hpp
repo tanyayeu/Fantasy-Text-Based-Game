@@ -19,6 +19,7 @@
 
 class Knight: public Character
 {
+private:
 public:
     Knight();
     int attack() override;

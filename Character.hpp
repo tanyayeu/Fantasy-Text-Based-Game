@@ -21,9 +21,11 @@ using std::string;
 class Character
 {
 protected:
-    int HP, maxHP; //health points
+    int HP, maxHP, gold; //health points
     string type;
     Character();
+    int bpSize = 6;
+    string backpack;
 
 public:
     virtual int attack() = 0;
@@ -31,9 +33,21 @@ public:
     int getHP();
     string getType();
     void recover(int n); //for potions
+    void setHP(int n);
     int getMaxHP();
     virtual void printStats() = 0;
     virtual ~Character();
+    int getGold();
+    void setGold(int g);
+    void addToBP(char x);
+    void useItem(int n);
+    void openBP();
+    int getNumBP();
+    bool isEmpty();
+    bool hasRevive();
+    void useRevive();
+    bool isAlive();
+    bool hasKey();
 };
 #endif
 

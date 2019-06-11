@@ -16,12 +16,13 @@
 #define TOWN_HPP
 #include "Space.hpp"
 #include <string>
+using std::string;
 
 class Town: public Space
 {
 public:
     void printInfo() override;
-    void spawnEnemy() override;
+    void interact(Character *p, int &townHealth) override;
     Town();
     ~Town();
 };
