@@ -14,7 +14,7 @@
  */
 #include "Town.hpp"
 #include <iostream>
-#include <String>
+#include <string>
 #include "Item.hpp"
 #include "getInput.hpp"
 #include "Potion.hpp"
@@ -26,6 +26,7 @@ Town::Town()
 {
     type = "Town";
 }
+
 
 void Town::printInfo()
 {

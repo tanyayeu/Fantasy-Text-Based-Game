@@ -36,3 +36,8 @@ Space::~Space()
 {
 
 }
+
+void Space::setIsBossDefeated()
+{
+    isBossDefeated = true;
+}

@@ -22,12 +22,14 @@ using std::string;
 
 class Dungeon: public Space
 {
+private:
+    bool isLit;
 public:
     void printInfo() override;
     Dungeon();
     ~Dungeon();
     void interact(Character *, int &, Backpack *) override;
-    bool isLit();
     Character *creature, *finalBoss;
+    void battle(Character *p, Character *creature);
 };
 #endif

@@ -29,7 +29,6 @@ Forest::Forest()
     type = "Forest";
 }
 
-
 void Forest::printInfo()
 {
     cout << "== " << getName() << " ==" << endl;

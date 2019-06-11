@@ -53,7 +53,7 @@ void Game::playGame()
     //map of area
     printMap();
 
-    while(townHealth>=0 && player->getHP() > 0)
+    while(townHealth>=0 && player->getHP() > 0 && playerLoc->!isBossDefeated())
     {
         cout << "Town Health: " << townHealth << "HP"<< endl;
         cout << "Your Health: " << player->getHP() << "HP" << endl; 

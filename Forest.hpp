@@ -22,7 +22,6 @@ public:
     Forest();
     void printInfo() override;
     void interact(Character*p, int &townHealth, Backpack *b) override;
-
     ~Forest();
 };
 #endif
