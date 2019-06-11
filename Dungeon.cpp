@@ -73,32 +73,6 @@ void Dungeon::interact(Character *p, int &townHealth)
             cout << "Another creature is alerted of your presence!" << endl;
             creature = new Enemy;
             battle(p,creature);
-            /*  
-                if(p->isAlive() == true)
-                {
-                do
-                {
-                cout << "1. Open backpack" << endl << "2. Keep going" << endl;
-                input = getInput(1,2);
-                if(input ==1)
-                {
-                p->openBP();
-                if(p->isEmpty() == false)
-                {
-                cout << "Use an item?" << endl;
-                cout << "1. Yes\n" << "2. No\n";
-                choice = getInput(1,2);
-                if(choice ==1)
-                {
-                cout << "Which item would you like to use?" << endl;
-                itemIndex = getInput(1,p->getNumBP());
-                p->useItem(itemIndex);
-                }
-                }
-
-                }
-                }while(input!=2);
-                } */
             delete creature;
         }
         //end chance encounter
@@ -198,11 +172,11 @@ void Dungeon::battle(Character* p, Character *creature)
             }while(input!=2);
 
         }
-        else
-        {
-            cout << "You were defeated!" << endl;
-        }
 
+    }
+    else
+    {
+        cout <<"You have been defeated..the town gets completely overrun!" << endl;
     }
 
 }

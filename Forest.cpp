@@ -19,6 +19,7 @@
 #include "Space.hpp"
 #include "Knight.hpp"
 #include "Enemy.hpp"
+#include "getInput.hpp"
 using std::cout;
 using std::endl;
 using std::string;
@@ -39,7 +40,7 @@ void Forest::interact(Character *p, int &townHealth)
 {
     cout << "A creature has appeared!" << endl;
     creature = new Enemy;
-    battle(p,creature);
+    battle(p,creature, townHealth);
 }
 
 Forest::~Forest()
@@ -47,9 +48,9 @@ Forest::~Forest()
 }
 
 
-void Forest::battle(Character* p, Character *creature)
+void Forest::battle(Character* p, Character *creature, int townHealth)
 {
-    int attackRoll,defenseRoll,totalDamage;
+    int attackRoll,defenseRoll,totalDamage, chance;
     creature->printStats();
     cout << endl;
     p->printStats();
@@ -96,14 +97,26 @@ void Forest::battle(Character* p, Character *creature)
     if(p->getHP()>0)
     {
         cout << "You defeated the creature! +5g" << endl;
-        cout << "Your HP:  " << p->getHP() << "HP" <<endl;
+        cout << "Your HP:  " << p->getHP() << "HP" <<endl << endl;
         p->setGold(p->getGold()+5);
+
+        chance = rand() % 100 + 1;
+        //key has 45% drop rate
+        if(chance<=45 && p->hasKey() == false)
+        {
+            cout << "The creature dropped a key!" << endl;
+            p->addToBP('K');
+        }
+        if(townHealth<=15 && p->hasKey() == false)
+        {
+            cout << "The creature dropped a key!" << endl;
+            p->addToBP('K');
+        }
     }
     else
     {
         cout << "You were defeated... you limp away with 1HP" << endl;
         p->setHP(1);
     }
-
 }
 

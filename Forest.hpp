@@ -22,7 +22,7 @@ public:
     Forest();
     void printInfo() override;
     void interact(Character*p, int &townHealth) override;
-    void battle(Character *p, Character *creature);
+    void battle(Character *p, Character *creature, int townHealth);
     Character *creature;
     ~Forest();
 };

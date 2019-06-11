@@ -47,6 +47,7 @@ public:
     bool hasRevive();
     void useRevive();
     bool isAlive();
+    bool hasKey();
 };
 #endif
 

@@ -31,6 +31,7 @@ Game::Game()
     player = new Knight;
     createMap();
     townHealth = 50;
+    tipShown = false;
 }
 
 void Game::playGame()
@@ -58,6 +59,12 @@ void Game::playGame()
 
         playerLoc->printInfo();
         playerLoc->interact(player, townHealth);
+        if(player->getGold()>35 && player->hasRevive() == false && !tipShown)
+        {
+            cout << "== HELPFUL TIP: Having Revives is recommended! These are sold in ";
+            cout << "Rivendell." << endl;
+            tipShown = true;
+        }
         if(player->isAlive()==true &&playerLoc->isBossDefeated()==false && townHealth>0)
         {
             do
@@ -96,13 +103,13 @@ void Game::playGame()
             cout << "Where would you like to travel to?" << endl;
             cout << "Direction: ";
             dir = getInput(1,4);
-            while(!isValidDir(dir))
+            while(!isValidDir(dir, player))
             {
                 cout << "That is not a valid direction." << endl;
                 cout << "Direction: ";
                 dir = getInput(1,4);
             }
-            if(isValidDir(dir))
+            if(isValidDir(dir,player))
             {
                 travel(dir);
             }
@@ -155,7 +162,8 @@ void Game::intro()
     cout << "If you defeat the creatures you will get +5g" << endl<<endl;
     cout << "== Dungeon ==" << endl;
     cout << "You must defeat the Boss in the Dungeon to close the portal";
-    cout << " and save your town." <<endl;
+    cout << " and save your town. You will need a key to enter, you can find";
+    cout << " one in the forest on a creature." << endl;
     cout << "==============================================================";
     cout <<"================";
     cout << endl << endl;
@@ -248,7 +256,7 @@ void Game::printMap()
  *                input.
  *============================================================================
  */
-bool Game::isValidDir(int dir)
+bool Game::isValidDir(int dir, Character *p)
 {
     if(dir==1)
     {
@@ -256,6 +264,12 @@ bool Game::isValidDir(int dir)
         {
             return false;
         }
+        if(playerLoc->top->getName() == "Moria" && p->hasKey() == false)
+        {
+            cout << "You need a key to enter Moria" << endl;
+            return false;
+        }
+
         else
         {
             return true;
@@ -265,6 +279,11 @@ bool Game::isValidDir(int dir)
     {
         if(playerLoc->right == nullptr)
         {
+            return false;
+        }
+        if(playerLoc->right->getName() == "Moria" && p->hasKey() == false)
+        {
+            cout << "You need a key to enter Moria" << endl;
             return false;
         }
         else

@@ -123,6 +123,10 @@ void Character::useItem(int n)
     {
         cout << "Let's save that for battle!" << endl;
     }
+    if(backpack[n] == 'K')
+    {
+        cout << "You'll need that key to enter the dungeon." << endl;
+    }
 }
 //https://www.geeksforgeeks.org/stdstringerase-in-cpp/
 
@@ -181,4 +185,22 @@ bool Character::isAlive()
         alive = false;
     }
     return alive;
+}
+
+bool Character::hasKey()
+{
+    bool r;
+    for(int i=0; i<backpack.size(); i++)
+    {
+        if(backpack[i] == 'K')
+        {
+            r = true;
+            break;
+        }
+        else
+        {
+            r = false;
+        }
+    }
+    return r;
 }

@@ -31,6 +31,7 @@ private:
           *Deadwood,
           *Moria,
           *playerLoc;
+    bool tipShown;
     
 public:
     Game();
@@ -39,7 +40,7 @@ public:
     void createMap();
     void displayArea();
     void printMap();
-    bool isValidDir(int dir);
+    bool isValidDir(int dir, Character *p);
     void intro();
     ~Game();
 };
