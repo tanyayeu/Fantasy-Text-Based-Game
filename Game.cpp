@@ -157,7 +157,7 @@ void Game::intro()
     cout << "If you defeat the creatures you will get +5g" << endl<<endl;
     cout << "== Dungeon ==" << endl;
     cout << "You must defeat the Boss in the Dungeon to close the portal";
-    cout << " and save your town. You will need a key to enter, you can find";
+    cout << " and save your town.\nYou will need a key to enter, you can find";
     cout << " one in the forest on a creature." << endl;
     cout << "==============================================================";
     cout <<"================";
