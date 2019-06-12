@@ -76,7 +76,7 @@ void Character::openBP()
     else
     {
         cout << "== BACKPACK ==" << endl;
-        for(int i = 1; i<=backpack.size(); i++)
+        for(string::size_type i = 1; i<=backpack.size(); i++)
         {
             cout << "["<<i<<"]" << " " << backpack[i-1] << endl;
         }
@@ -145,7 +145,7 @@ bool Character::isEmpty()
 bool Character::hasRevive()
 {
     bool r;
-    for(int i=0; i<backpack.size(); i++)
+    for(string::size_type i=0; i<backpack.size(); i++)
     {
         if(backpack[i] == 'R')
         {
@@ -163,7 +163,7 @@ bool Character::hasRevive()
 void Character::useRevive()
 {
     int index = 0;
-    for(int i=0; i<backpack.size(); i++)
+    for(string::size_type i=0; i<backpack.size(); i++)
     {
         if(backpack[i] == 'R')
         {
@@ -190,7 +190,7 @@ bool Character::isAlive()
 bool Character::hasKey()
 {
     bool r;
-    for(int i=0; i<backpack.size(); i++)
+    for(string::size_type i=0; i<backpack.size(); i++)
     {
         if(backpack[i] == 'K')
         {

@@ -93,7 +93,8 @@ void Dungeon::interact(Character *p, int &townHealth)
 }
 Dungeon::~Dungeon()
 {
-
+    delete finalBoss;
+    finalBoss = nullptr;
 }
 
 void Dungeon::battle(Character* p, Character *creature)

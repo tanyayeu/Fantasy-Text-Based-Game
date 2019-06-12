@@ -59,12 +59,7 @@ void Game::playGame()
 
         playerLoc->printInfo();
         playerLoc->interact(player, townHealth);
-        if(player->getGold()>35 && player->hasRevive() == false && !tipShown)
-        {
-            cout << "== HELPFUL TIP: Having Revives is recommended! These are sold in ";
-            cout << "Rivendell." << endl;
-            tipShown = true;
-        }
+        
         if(player->isAlive()==true &&playerLoc->isBossDefeated()==false && townHealth>0)
         {
             do

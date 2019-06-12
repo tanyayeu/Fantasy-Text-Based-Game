@@ -17,6 +17,7 @@
 Space::Space()
 {
     hasGoods = false;
+    BossDefeated = false;
 }
 
 string Space::getType()

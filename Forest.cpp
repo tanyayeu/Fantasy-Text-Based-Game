@@ -41,6 +41,8 @@ void Forest::interact(Character *p, int &townHealth)
     cout << "A creature has appeared!" << endl;
     creature = new Enemy;
     battle(p,creature, townHealth);
+    delete creature;
+    creature = nullptr;
 }
 
 Forest::~Forest()
@@ -50,7 +52,7 @@ Forest::~Forest()
 
 void Forest::battle(Character* p, Character *creature, int townHealth)
 {
-    int attackRoll,defenseRoll,totalDamage, chance;
+    int attackRoll,defenseRoll,totalDamage, chance = 0;
     creature->printStats();
     cout << endl;
     p->printStats();

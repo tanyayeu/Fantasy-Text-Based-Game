@@ -24,9 +24,8 @@ protected:
     int HP, maxHP, gold; //health points
     string type;
     Character();
-    int bpSize = 6;
+    string::size_type bpSize = 6;
     string backpack;
-
 public:
     virtual int attack() = 0;
     virtual int defend() = 0;
