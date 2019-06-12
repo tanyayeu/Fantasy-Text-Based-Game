@@ -24,11 +24,23 @@ using std::cout;
 using std::endl;
 using std::string;
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  Forest()
+ *  Description:  Default constructor
+ * =========================================================================
+ */
 Forest::Forest()
 {
     type = "Forest";
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  printInfo()
+ *  Description:  This function prints info about the space
+ * =========================================================================
+ */
 void Forest::printInfo()
 {
     cout << "== " << getName() << " ==" << endl;
@@ -36,6 +48,13 @@ void Forest::printInfo()
     cout << "Keep your wits about you and be careful!" << endl << endl;
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  interact
+ *  Description:  This function takes the character and town health as 
+ *                parameters. It creates an enemy and calls battle.
+ * =========================================================================
+ */
 void Forest::interact(Character *p, int &townHealth)
 {
     cout << "A creature has appeared!" << endl;
@@ -45,11 +64,25 @@ void Forest::interact(Character *p, int &townHealth)
     creature = nullptr;
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  ~Forest()
+ *  Description:  Deconstructor
+ * =========================================================================
+ */
 Forest::~Forest()
 {
 }
 
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  battle
+ *  Description:  This function simulates a battle. If the creature is
+ *                defeated, it has a 45% drop rate for the key to Moria.
+ *                If town health is low, then it has 100% drop rate.
+ * =========================================================================
+ */
 void Forest::battle(Character* p, Character *creature, int townHealth)
 {
     int attackRoll,defenseRoll,totalDamage, chance = 0;

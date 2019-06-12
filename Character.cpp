@@ -3,7 +3,7 @@
  *
  *       Filename:  Character.cpp
  *
- *    Description:  
+ *    Description:  This is the source file for Character class
  *             
  *           Date:  
  *
@@ -17,11 +17,23 @@
 using std::cout;
 using std::endl;
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  Character()
+ *  Description:  Default constructor
+ * =========================================================================
+ */
 Character::Character()
 {
     backpack = "";
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  getHP() setHP(int)
+ *  Description:  These get and set HP for the character
+ * =========================================================================
+ */
 int Character::getHP()
 {
     return HP;
@@ -32,11 +44,23 @@ void Character::setHP(int n)
     HP = n;
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  getType
+ *  Description:  This returns the character type
+ * =========================================================================
+ */
 string Character::getType()
 {
     return type;
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  recover(int n)
+ *  Description:  This recovers the players health
+ * =========================================================================
+ */
 void Character::recover(int n)
 {
     HP+= n;
@@ -46,16 +70,34 @@ void Character::recover(int n)
     }
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  getMaxHP
+ *  Description:  This returns the characters maxhP
+ * =========================================================================
+ */
 int Character::getMaxHP()
 {
     return maxHP;
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  ~Character()
+ *  Description:  Deconstructor
+ * =========================================================================
+ */
 Character::~Character()
 {
 
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  getGold setGold
+ *  Description:  Returns the characters gold and sets the gold
+ * =========================================================================
+ */
 int Character::getGold()
 {
     return gold;
@@ -66,6 +108,12 @@ void Character::setGold(int g)
     gold =g;
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  oepnBP()
+ *  Description:  This function opens the backpack and displays the conent
+ * =========================================================================
+ */
 void Character::openBP()
 {
     if(isEmpty())
@@ -84,6 +132,12 @@ void Character::openBP()
     }
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  addToBP(char)
+ *  Description:  Adds a char to represent the item into the string
+ * =========================================================================
+ */
 void Character::addToBP(char x)
 {
     if(backpack.size() >= bpSize)
@@ -97,11 +151,23 @@ void Character::addToBP(char x)
     }
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  getNumBP
+ *  Description:  returns the number of items in the backpack
+ * =========================================================================
+ */
 int Character::getNumBP()
 {
     return backpack.size();
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  useItem
+ *  Description:  This function uses the item and removes it from the string
+ * =========================================================================
+ */
 void Character::useItem(int n)
 {
     n = n-1;
@@ -130,6 +196,12 @@ void Character::useItem(int n)
 }
 //https://www.geeksforgeeks.org/stdstringerase-in-cpp/
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  isEmpty
+ *  Description:  Checks whether the backpack is empty
+ * =========================================================================
+ */
 bool Character::isEmpty()
 {
     if(backpack.empty())
@@ -142,6 +214,12 @@ bool Character::isEmpty()
     }
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  hasRevive
+ *  Description:  Checks the backpack for any revives
+ * =========================================================================
+ */
 bool Character::hasRevive()
 {
     bool r;
@@ -160,6 +238,12 @@ bool Character::hasRevive()
     return r;
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  useRevive
+ *  Description:  uses the revive and removes it from the backpack
+ * =========================================================================
+ */
 void Character::useRevive()
 {
     int index = 0;
@@ -177,6 +261,12 @@ void Character::useRevive()
     return;
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  isAlive()
+ *  Description:  Checks if player is still alive and returns true or false
+ * =========================================================================
+ */
 bool Character::isAlive()
 {
     bool alive = true;
@@ -187,6 +277,12 @@ bool Character::isAlive()
     return alive;
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  hasKey
+ *  Description:  Checks the backpack for a key and returns true or false
+ * =========================================================================
+ */
 bool Character::hasKey()
 {
     bool r;

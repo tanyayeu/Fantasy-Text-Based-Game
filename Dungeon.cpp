@@ -19,6 +19,12 @@
 using std::cout;
 using std::endl;
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  Dungeon()
+ *  Description:  Default constructor. Initializes variables
+ * =========================================================================
+ */
 Dungeon::Dungeon()
 {
     type = "Dungeon";
@@ -26,12 +32,28 @@ Dungeon::Dungeon()
     creature = nullptr;
     finalBoss = nullptr;
 }
+
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  printInfo
+ *  Description:  Prints information about the space
+ * =========================================================================
+ */
 void Dungeon::printInfo()
 {
     cout << "You have entered the Dungeon Moria. It is dark and wet, and";
     cout << " you can't see a damn thing." << endl << endl;
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  Interact(Character*, int&)
+ *  Description:  This takes the character pointer and townhealth by ref
+ *                and interacts with the space. In the dungeon, the user
+ *                can choose to light a torch and there will be different
+ *                outcomes. then they battle the final boss.
+ * =========================================================================
+ */
 void Dungeon::interact(Character *p, int &townHealth)
 {
     int input, chance;
@@ -91,12 +113,25 @@ void Dungeon::interact(Character *p, int &townHealth)
         }
     }
 }
+
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  ~Dungeon
+ *  Description:  Deconstructor
+ * =========================================================================
+ */
 Dungeon::~Dungeon()
 {
     delete finalBoss;
     finalBoss = nullptr;
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  battle
+ *  Description:  This function simulates a battle and displays the results
+ * =========================================================================
+ */
 void Dungeon::battle(Character* p, Character *creature)
 {
     int attackRoll,defenseRoll,totalDamage, input,itemIndex,choice;

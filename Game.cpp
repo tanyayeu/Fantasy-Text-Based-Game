@@ -26,6 +26,12 @@
 using std::cout;
 using std::endl;
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  Game()
+ *  Description:  Default constructor.
+ * =========================================================================
+ */
 Game::Game()
 {
     player = new Knight;
@@ -34,6 +40,14 @@ Game::Game()
     tipShown = false;
 }
 
+/* 
+ * ===  FUNCTION  ==========================================================
+ *         Name:  playGame()
+ *  Description:  This starts the game. It calls the space interactions
+ *                and decreases town health at the end of each round.
+ *                If user health or town health drops to 0 then game ends.
+ * =========================================================================
+ */
 void Game::playGame()
 {
     unsigned seed;
